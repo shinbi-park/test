@@ -13,7 +13,7 @@ const App = () => {
           notice={"필수*"}
           type={"email"}
           placeholder={"이메일을 입력하세요"}
-          required
+          required={true}
         />
 
         <Input
@@ -21,7 +21,7 @@ const App = () => {
           notice={"필수*"}
           type={"password"}
           placeholder={"비밀번호를 입력하세요"}
-          required
+          required={true}
         />
 
         <Input
@@ -29,7 +29,7 @@ const App = () => {
           notice={"필수*"}
           type={"password"}
           placeholder={"비밀번호를 다시 입력하세요"}
-          required
+          required={true}
         />
 
         <Input
@@ -37,7 +37,7 @@ const App = () => {
           notice={"필수*"}
           type={"text"}
           placeholder={"이름을 입력하세요"}
-          required
+          required={true}
         />
 
         <Input

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ name, notice, type, placeholder }) => {
+const Input = ({ name, notice, type, placeholder, required }) => {
   return (
     <div className="Input">
       <label>
@@ -8,7 +8,7 @@ const Input = ({ name, notice, type, placeholder }) => {
         <span>{notice}</span>
       </label>
 
-      <input type={type} placeholder={placeholder} />
+      <input type={type} placeholder={placeholder} required={required} />
     </div>
   );
 };
