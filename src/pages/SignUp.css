@@ -1,0 +1,61 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  text-align: center;
+}
+input {
+  display: block;
+  width: 250px;
+  height: 40px;
+}
+
+.requiredInput {
+  display: inline-flex;
+  font-size: 12px;
+  margin-left: 3px;
+}
+.requiredInput span {
+  color: red;
+}
+
+.Input {
+  margin-bottom: 10px;
+}
+
+.signup_submit {
+  border: none;
+  padding: 15px;
+  margin-top: 10px;
+  width: 250px;
+  border-radius: 10px;
+  background-color: rgb(231, 207, 245);
+}
+
+/* 인터넷에서 가져온 input type="number"시 발생하는 증가감소버튼 삭제 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.signup_reset_wrap {
+  display: flex;
+  justify-content: center;
+}
+.signup_reset {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(230, 229, 229);
+  margin-top: 10px;
+  width: 100px;
+  height: 30px;
+  color: gray;
+}
+
+.pwdNotice {
+  color: crimson;
+  font-size: 12px;
+}
