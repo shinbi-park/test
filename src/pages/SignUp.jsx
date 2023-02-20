@@ -1,25 +1,56 @@
-import React, { useEffect, useState } from "react";
-import Input from "../component/Input";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import Input from "../components/Input";
+import Main from "./Main";
 import "./SignUp.css";
 
-const SignUp = () => {
-  const [state, setState] = useState({
-    email: "",
-    pwd: "",
-    pwdCheck: "",
-    username: "",
-    age: "",
-  });
+const initialState = {
+  email: "",
+  pwd: "",
+  pwdCheck: "",
+  username: "",
+  age: "",
+};
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "CHANGE": {
+      return action.state;
+    }
+    case "RESET": {
+      return action.state;
+    }
+
+    default:
+      return state;
+  }
+};
+
+const SignUp = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [isPwdSame, setIsPwdSame] = useState(true);
   const [disabled, setDisabled] = useState(true);
 
-  const handleChange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const emailRef = useRef();
+  const navigate = useNavigate();
+
+  const handleChange = useCallback(
+    (e) => {
+      dispatch({
+        type: "CHANGE",
+        state: { ...state, [e.target.name]: e.target.value },
+      });
+    },
+    [state]
+  );
 
   useEffect(() => {
     if (state.pwd !== state.pwdCheck) {
@@ -27,11 +58,9 @@ const SignUp = () => {
     } else {
       setIsPwdSame(true);
     }
-  }, [state.pwd, state.pwdCheck, isPwdSame]);
 
-  useEffect(() => {
     if (
-      state.email === "" ||
+      state.email === false ||
       state.pwd === "" ||
       state.pwdCheck === "" ||
       state.username === "" ||
@@ -42,10 +71,10 @@ const SignUp = () => {
       setDisabled(false);
     }
   }, [
-    state.email,
     state.pwd,
     state.pwdCheck,
     isPwdSame,
+    state.email,
     state.username,
     disabled,
   ]);
@@ -54,16 +83,16 @@ const SignUp = () => {
     e.preventDefault();
     console.log(state);
     alert(`${state.username}님 환영합니다!`);
+    localStorage.setItem("name", state.username);
+    navigate("/");
   };
 
   const onReset = () => {
-    setState({
-      email: "",
-      pwd: "",
-      pwdCheck: "",
-      username: "",
-      age: "",
+    dispatch({
+      type: "RESET",
+      state: initialState,
     });
+    emailRef.current.focus();
   };
 
   return (
@@ -78,6 +107,7 @@ const SignUp = () => {
           onChange={handleChange}
           placeholder={"이메일을 입력하세요"}
           required
+          ref={emailRef}
         />
         <Input
           name="pwd"
@@ -126,12 +156,12 @@ const SignUp = () => {
             가입하기
           </button>
         </div>
-        <div className="signup_reset_wrap">
-          <button onClick={onReset} className="signup_reset">
-            초기화
-          </button>
-        </div>
       </form>
+      <div className="signup_reset_wrap">
+        <button onClick={onReset} className="signup_reset">
+          초기화
+        </button>
+      </div>
     </div>
   );
 };
