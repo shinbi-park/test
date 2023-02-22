@@ -6,12 +6,14 @@ import SignUp from "./pages/SignUp";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<Main />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Main />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
 

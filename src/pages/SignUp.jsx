@@ -1,15 +1,13 @@
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 import React, {
   useCallback,
   useEffect,
-  useMemo,
   useReducer,
   useRef,
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input";
-import Main from "./Main";
+
 import "./SignUp.css";
 
 const initialState = {
@@ -60,7 +58,7 @@ const SignUp = () => {
     }
 
     if (
-      state.email === false ||
+      state.email === "" ||
       state.pwd === "" ||
       state.pwdCheck === "" ||
       state.username === "" ||
@@ -79,21 +77,24 @@ const SignUp = () => {
     disabled,
   ]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(state);
-    alert(`${state.username}님 환영합니다!`);
-    localStorage.setItem("name", state.username);
-    navigate("/");
-  };
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      console.log(state);
+      alert(`${state.username}님 환영합니다!`);
+      localStorage.setItem("name", state.username);
+      navigate("/");
+    },
+    [navigate, state]
+  );
 
-  const onReset = () => {
+  const onReset = useCallback(() => {
     dispatch({
       type: "RESET",
       state: initialState,
     });
     emailRef.current.focus();
-  };
+  }, []);
 
   return (
     <div>
